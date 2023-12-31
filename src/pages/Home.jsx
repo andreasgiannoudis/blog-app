@@ -5,25 +5,35 @@ import { auth, db } from "../components/firebase-config";
 function Home({ isAuth }) {
   const [postLists, setPostList] = useState([]);
   const postsCollectionRef = collection(db, "posts");
+
   const deletePost = async (id) => {
     const postDoc = doc(db, "posts", id);
-    await deleteDoc(postDoc);
+    try {
+      await deleteDoc(postDoc);
+    } catch (error) {
+      console.error(`Error deleting post: ${error}`);
+    }
   };
 
   useEffect(() => {
-    const getPosts = async () => {
-      const data = await getDocs(postsCollectionRef);
-      setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+    try {
+      const getPosts = async () => {
+        const data = await getDocs(postsCollectionRef);
+        setPostList(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        console.log(postLists); // Post objects should now be populated
+      };
 
-    getPosts();
+      getPosts();
+    } catch (error) {
+      console.error(`Error fetching posts: ${error}`);
+    }
   }, [deletePost]);
 
   
   return (
     <div className="homePage">
       {postLists.map((post) => {
-        console.log(post);
+        console.log(post.author.name);
         return (
           <div className="post">
             <div className="postHeader">
