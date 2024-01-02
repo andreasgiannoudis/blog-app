@@ -33,14 +33,12 @@ export default function App(){
                 }
                 
             </nav>
-            
-                <HashRouter>
+            <Routes> 
+                   
                 <Route path='/' element={<Home isAuth={isAuth} />} />
                 <Route path='/createpost' element={<CreatePost isAuth={isAuth} />} />
                 <Route path='/login' element={<Login setIsAuth={setIsAuth} />} />
-                </HashRouter>   
-                
-            
+            </Routes>
         </Router>
 
         </>
