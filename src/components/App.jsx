@@ -1,10 +1,12 @@
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Routes, Route, Link, HashRouter} from 'react-router-dom'
 import Home from '../pages/Home';
 import CreatePost from '../pages/CreatePost';
 import Login from '../pages/Login';
+
 import { useState } from 'react';
 import { signOut } from 'firebase/auth';
 import {auth} from "../components/firebase-config";
+import logo from "../img/logo.jpeg";
 
 
 export default function App(){
@@ -20,6 +22,7 @@ export default function App(){
         <>  
         <Router>
             <nav>
+                <img src={logo} alt="" />
                 <Link to="/">Home</Link>
                 
                 {!isAuth ? <Link to="/login">Login</Link> : 
@@ -30,11 +33,14 @@ export default function App(){
                 }
                 
             </nav>
-            <Routes>    
+            
+                <HashRouter>
                 <Route path='/' element={<Home isAuth={isAuth} />} />
                 <Route path='/createpost' element={<CreatePost isAuth={isAuth} />} />
                 <Route path='/login' element={<Login setIsAuth={setIsAuth} />} />
-            </Routes>
+                </HashRouter>   
+                
+            
         </Router>
 
         </>

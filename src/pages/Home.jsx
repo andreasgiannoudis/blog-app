@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getDocs, collection, deleteDoc, doc } from "firebase/firestore";
 import { auth, db } from "../components/firebase-config";
+import Info from '../pages/Info';
 
 function Home({ isAuth }) {
   const [postLists, setPostList] = useState([]);
@@ -31,6 +32,8 @@ function Home({ isAuth }) {
 
   
   return (
+    <>
+    <Info />
     <div className="homePage">
       {postLists.map((post) => {
         console.log(post.author.name);
@@ -59,6 +62,8 @@ function Home({ isAuth }) {
         );
       })}
     </div>
+    </>
+    
   );
 }
 
